@@ -32,10 +32,10 @@ EXPOSE 5050
 #################
 
 # change owner
-RUN chown -R nobody:users /opt/couchpotato
+RUN chown -R nobody:users /opt/couchpotato /config
 
 # set permissions
-RUN chmod -R 775 /opt/couchpotato
+RUN chmod -R 775 /opt/couchpotato /config
 
 # add conf file
 ###############
