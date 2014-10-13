@@ -1,17 +1,35 @@
-FROM binhex/arch-base:2014100603
+FROM binhex/arch-base:2014101300
 MAINTAINER binhex
 
-# install application
-#####################
+# additional files
+##################
 
-# update package databases for arch
-RUN pacman -Sy --noconfirm
+# download packer from aur
+ADD https://aur.archlinux.org/packages/pa/packer/packer.tar.gz /root/packer.tar.gz
 
-# install any pre-reqs for application
-RUN pacman -S python2-pyopenssl --noconfirm
+# add supervisor conf file for app
+ADD couchpotato.conf /etc/supervisor/conf.d/couchpotato.conf
 
-# run packer to install application
-RUN packer -S couchpotato-git --noconfirm
+# install app
+#############
+
+# install base devel, install app using packer, set perms, cleanup
+RUN pacman -Sy --noconfirm && \
+	pacman -S --needed base-devel python2-pyopenssl --noconfirm && \
+	cd /root && \
+	tar -xzf packer.tar.gz && \
+	cd /root/packer && \
+	makepkg -s --asroot --noconfirm && \
+	pacman -U /root/packer/packer*.tar.xz --noconfirm && \
+	packer -S couchpotato-git --noconfirm && \
+	pacman -Ru base-devel --noconfirm && \
+	pacman -Scc --noconfirm && \
+	chown -R nobody:users /opt/couchpotato && \
+	chmod -R 775 /opt/couchpotato && \	
+	rm -rf /archlinux/usr/share/locale && \
+	rm -rf /archlinux/usr/share/man && \
+	rm -rf /root/* && \
+	rm -rf /tmp/*
 
 # docker settings
 #################
@@ -27,32 +45,6 @@ VOLUME /media
 
 # expose port for http
 EXPOSE 5050
-
-# set permissions
-#################
-
-# change owner
-RUN chown -R nobody:users /opt/couchpotato
-
-# set permissions
-RUN chmod -R 775 /opt/couchpotato
-
-# add conf file
-###############
-
-ADD couchpotato.conf /etc/supervisor/conf.d/couchpotato.conf
-
-# cleanup
-#########
-
-# remove unneeded apps from base-devel group - used for AUR package compilation
-RUN pacman -Ru base-devel --noconfirm
-
-# completely empty pacman cache folder
-RUN pacman -Scc --noconfirm
-
-# remove temporary files
-RUN rm -rf /tmp/*
 
 # run supervisor
 ################
