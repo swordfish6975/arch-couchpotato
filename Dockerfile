@@ -22,7 +22,7 @@ RUN pacman -Sy --noconfirm && \
 	tar -xvf packer.tar.gz && \
 	su -c "cd /home/makepkg-user/packer && makepkg -s --noconfirm --needed" - makepkg-user && \
 	pacman -U /home/makepkg-user/packer/packer*.tar.xz --noconfirm && \
-	su -c "packer -S sabnzbd --noconfirm" - makepkg-user && \
+	su -c "packer -S couchpotato-git --noconfirm" - makepkg-user && \
 	chown -R nobody:users /opt/couchpotato && \
 	chmod -R 775 /opt/couchpotato && \	
 	pacman -Ru packer base-devel git --noconfirm && \
