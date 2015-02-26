@@ -1,4 +1,4 @@
-FROM binhex/arch-base:2015010500
+FROM binhex/arch-base:2015022600
 MAINTAINER binhex
 
 # additional files
@@ -10,27 +10,25 @@ ADD couchpotato.conf /etc/supervisor/conf.d/couchpotato.conf
 # install app
 #############
 
-# install base devel, install app using packer, set perms, cleanup
+# install dev tools and pre-reqs, compile and install app, set perms, cleanup
 RUN pacman -Sy --noconfirm && \
 	pacman -S --needed base-devel python2-pyopenssl --noconfirm && \	
 	useradd -m -g wheel -s /bin/bash makepkg-user && \
 	echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user && \
 	echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers && \
 	echo "Defaults:makepkg-user      !authenticate" >> /etc/sudoers && \
-	curl -o /home/makepkg-user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer/packer.tar.gz && \
+	curl -o /home/makepkg-user/package.tar.gz https://aur.archlinux.org/packages/co/couchpotato-git/couchpotato-git.tar.gz && \
 	cd /home/makepkg-user && \
-	tar -xvf packer.tar.gz && \
-	su -c "cd /home/makepkg-user/packer && makepkg -s --noconfirm --needed" - makepkg-user && \
-	pacman -U /home/makepkg-user/packer/packer*.tar.xz --noconfirm && \
-	su -c "packer -S couchpotato-git --noconfirm" - makepkg-user && \
+	tar -xvf package.tar.gz --strip-components=1 && \
+	su -c "makepkg -s --noconfirm --needed" - makepkg-user && \
+	pacman -U /home/makepkg-user/couchpotato*.tar.xz --noconfirm && \
 	chown -R nobody:users /opt/couchpotato && \
 	chmod -R 775 /opt/couchpotato && \	
-	pacman -Ru packer base-devel git --noconfirm && \
+	pacman -Ru base-devel git --noconfirm && \
 	yes|pacman -Scc && \
 	userdel -r makepkg-user && \
 	rm -rf /usr/share/locale/* && \
 	rm -rf /usr/share/man/* && \
-	rm -rf /root/* && \
 	rm -rf /tmp/*
 
 # docker settings
