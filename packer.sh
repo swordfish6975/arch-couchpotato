@@ -26,3 +26,9 @@ pacman -U /home/makepkg-user/packer/packer*.tar.xz --noconfirm
 
 # install app from aur
 su -c "packer -S $packer_packages --noconfirm" - makepkg-user
+
+# remove base devel tools and packer
+pacman -Ru packer base-devel git --noconfirm
+
+# delete makepkg-user account
+userdel -r makepkg-user

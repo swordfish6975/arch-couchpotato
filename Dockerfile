@@ -16,9 +16,8 @@ ADD packer.sh /root/packer.sh
 # install app
 #############
 
-# install base devel, install app using packer, set perms, cleanup
-RUN chmod +x /root/install.sh && \
-	chmod +x /root/packer.sh && \
+# make executable and run bash scripts to install app
+RUN chmod +x /root/install.sh /root/packer.sh && \
 	/bin/bash /root/install.sh
 
 # docker settings

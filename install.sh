@@ -15,9 +15,7 @@ chown -R nobody:users /opt/couchpotato
 chmod -R 775 /opt/couchpotato
 
 # cleanup
-pacman -Ru packer base-devel git --noconfirm
 yes|pacman -Scc
-userdel -r makepkg-user
 rm -rf /usr/share/locale/*
 rm -rf /usr/share/man/*
 rm -rf /tmp/*
