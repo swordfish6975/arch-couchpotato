@@ -7,7 +7,7 @@ set -e
 pacman_packages="base-devel"
 
 # define packer packages
-packer_packages="couchpotato-git"
+packer_packages="couchpotato"
 
 # install required pre-reqs for makepkg
 pacman -S --needed $pacman_packages --noconfirm
