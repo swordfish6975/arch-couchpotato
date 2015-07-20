@@ -14,8 +14,8 @@ pacman -S --needed $pacman_packages --noconfirm
 source /root/packer.sh
 
 # set permissions
-chown -R nobody:users /opt/couchpotato
-chmod -R 775 /opt/couchpotato
+chown -R nobody:users /usr/lib/couchpotato /usr/bin/couchpotato
+chmod -R 775 /usr/lib/couchpotato /usr/bin/couchpotato
 
 # cleanup
 yes|pacman -Scc
