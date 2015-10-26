@@ -3,7 +3,7 @@ CouchPotato
 
 CouchPotato - http://couchpota.to
 
-Latest stable CouchPotato Git Master release from Arch Linux AUR using Packer to compile.
+Latest stable CouchPotato GitHub release from Arch Linux AUR using Packer to compile.
 
 **Pull image**
 
