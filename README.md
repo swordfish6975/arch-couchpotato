@@ -27,7 +27,7 @@ Please replace all user variables in the above command defined by <> with the co
 
 **Access application**
 
-http://\<host ip\>:5050
+`http://<host ip>:5050`
 
 **Example**
 ```
