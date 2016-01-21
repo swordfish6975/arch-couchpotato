@@ -8,11 +8,11 @@ Awesome PVR for usenet and torrents. Just fill in what you want to see and Couch
 
 **Build notes**
 
-Latest GitHub Release of CouchPotato using Packer to compile.
+Latest stable CouchPotato release from Arch Linux AUR using Packer to compile.
 
 **Usage**
 ```
-docker run -d 
+docker run -d \
 	-p 5050:5050 \ 
 	--name=<container name> \
 	-v <path for media files>:/media \
@@ -22,7 +22,6 @@ docker run -d
 	binhex/arch-couchpotato
 ```
 
-
 Please replace all user variables in the above command defined by <> with the correct values.
 
 **Access application**
@@ -31,16 +30,15 @@ Please replace all user variables in the above command defined by <> with the co
 
 **Example**
 ```
-docker run -d 
+docker run -d \
 	-p 5050:5050 \ 
 	--name=couchpotato \
 	-v /media/movies:/media \
-	-v /apps/sabnzbd/watched:/data \
+	-v /apps/docker/sabnzbd/watched:/data \
 	-v /apps/docker/couchpotato:/config \
 	-v /etc/localtime:/etc/localtime:ro \
 	binhex/arch-couchpotato
 ```
-
 
 **Notes**
 
