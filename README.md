@@ -2,7 +2,7 @@
 
 [CouchPotato](http://couchpota.to)
 
-**Application description**
+**Description**
 
 Awesome PVR for usenet and torrents. Just fill in what you want to see and CouchPotato will add it to your "want to watch"-list. Every day it will search through multiple NZBs & Torrents sites, looking for the best possible match. If available, it will download it using your favorite download software.
 
@@ -13,13 +13,15 @@ Latest stable CouchPotato release from Arch Linux AUR using Packer to compile.
 **Usage**
 ```
 docker run -d \
-	-p 5050:5050 \ 
-	--name=<container name> \
-	-v <path for media files>:/media \
-	-v <path for data files>:/data \
-	-v <path for config files>:/config \
-	-v /etc/localtime:/etc/localtime:ro \
-	binhex/arch-couchpotato
+    -p 5050:5050 \ 
+    --name=<container name> \
+    -v <path for media files>:/media \
+    -v <path for data files>:/data \
+    -v <path for config files>:/config \
+    -v /etc/localtime:/etc/localtime:ro \
+    -e UID=<uid for user> \
+    -e GID=<gid for user> \
+    binhex/arch-couchpotato
 ```
 
 Please replace all user variables in the above command defined by <> with the correct values.
@@ -31,17 +33,23 @@ Please replace all user variables in the above command defined by <> with the co
 **Example**
 ```
 docker run -d \
-	-p 5050:5050 \ 
-	--name=couchpotato \
-	-v /media/movies:/media \
-	-v /apps/docker/sabnzbd/watched:/data \
-	-v /apps/docker/couchpotato:/config \
-	-v /etc/localtime:/etc/localtime:ro \
-	binhex/arch-couchpotato
+    -p 5050:5050 \ 
+    --name=couchpotato \
+    -v /media/movies:/media \
+    -v /apps/docker/sabnzbd/watched:/data \
+    -v /apps/docker/couchpotato:/config \
+    -v /etc/localtime:/etc/localtime:ro \
+    -e UID=0 \
+    -e GID=0 \
+    binhex/arch-couchpotato
 ```
 
 **Notes**
 
-N/A
+User ID (UID) and Group ID (GID) can be found by issuing the following command for the user you want to run the container as:-
+
+```
+id <username>
+```
 
 [Support forum](http://lime-technology.com/forum/index.php?topic=45837.0)
