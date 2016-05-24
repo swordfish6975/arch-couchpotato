@@ -21,7 +21,7 @@ su -c "tar -xvf $aur_helper.tar.gz" - makepkg-user
 
 # install aur helper
 su -c "cd /home/makepkg-user/$aur_helper && makepkg -s --noconfirm --needed" - makepkg-user
-pacman -U "/home/makepkg-user/$aur_helper/$aur_helper*.tar.xz" --noconfirm
+pacman -U /home/makepkg-user/$aur_helper/packer*.pkg.tar.xz --noconfirm
 
 # install app using aur helper
 su -c "$aur_helper -S $aur_packages --noconfirm" - makepkg-user
