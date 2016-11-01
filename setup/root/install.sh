@@ -19,7 +19,7 @@ pacman -S --needed $pacman_packages --noconfirm
 curl -o /tmp/scripts-master.zip -L https://github.com/binhex/scripts/archive/master.zip
 
 # unzip build scripts
-unzip /tmp/scripts-master.zip
+unzip /tmp/scripts-master.zip -d /tmp
 
 # move shell scripts to /root
 find /tmp/scripts-master/ -type f -name '*.sh' -exec mv -i {} /root/  \;
