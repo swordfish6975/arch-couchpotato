@@ -7,7 +7,7 @@ set -e
 pacman_packages="base-devel git python2-pyopenssl unrar"
 
 # define aur helper
-aur_helper="packer"
+aur_helper="apacman"
 
 # define aur packages
 aur_packages="couchpotato"
