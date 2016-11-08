@@ -32,9 +32,6 @@ fi
 # define arch official repo (aor) packages
 aor_packages=""
 
-# define arch official repo (aor) package type e.g. core/community/extra
-aor_package_type=""
-
 # call aor script (arch official repo)
 source /root/aor.sh
 
