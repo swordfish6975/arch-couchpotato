@@ -8,7 +8,7 @@ Awesome PVR for usenet and torrents. Just fill in what you want to see and Couch
 
 **Build notes**
 
-Latest stable CouchPotato release from Arch Linux AUR using Packer to compile.
+Latest stable CouchPotato release from Arch Linux AUR.
 
 **Usage**
 ```
