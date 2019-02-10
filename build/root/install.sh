@@ -29,14 +29,13 @@ fi
 # aur packages
 ####
 
-# define aur packages
-aur_packages="couchpotato"
+mkdir /usr/lib/couchpotato
+cd /usr/lib/couchpotato
 
 # call aur install script (arch user repo)
-source /root/aur.sh
+git clone --depth 1 --single-branch --branch develop https://github.com/CouchPotato/CouchPotatoServer.git
 
-# container perms
-####
+cd
 
 # define comma separated list of paths 
 install_paths="/usr/lib/couchpotato,/home/nobody"
