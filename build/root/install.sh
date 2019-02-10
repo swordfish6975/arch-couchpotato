@@ -21,17 +21,23 @@ mv /tmp/scripts-master/shell/arch/docker/*.sh /root/
 # define pacman packages
 pacman_packages="git python2-pyopenssl python2-lxml"
 
+
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
 	pacman -S --needed $pacman_packages --noconfirm
 fi
 
-cd /usr/lib
+# aur packages
+####
 
-git clone --depth 1 --single-branch --branch develop https://github.com/swordfish6975/CouchPotatoServer.git
+# define aur packages
+aur_packages="couchpotato"
 
-mv /usr/lib/CouchPotatoServer /usr/lib/couchpotato
+# call aur install script (arch user repo)
+source /root/aur.sh
 
+# container perms
+####
 
 # define comma separated list of paths 
 install_paths="/usr/lib/couchpotato,/home/nobody"
