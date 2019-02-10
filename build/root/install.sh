@@ -26,16 +26,11 @@ if [[ ! -z "${pacman_packages}" ]]; then
 	pacman -S --needed $pacman_packages --noconfirm
 fi
 
-# aur packages
-####
 
-mkdir /usr/lib/couchpotato
-cd /usr/lib/couchpotato
-
-# call aur install script (arch user repo)
 git clone --depth 1 --single-branch --branch develop https://github.com/CouchPotato/CouchPotatoServer.git
 
-cd
+mv -R /root/CouchPotatoServer /usr/lib/couchpotato
+
 
 # define comma separated list of paths 
 install_paths="/usr/lib/couchpotato,/home/nobody"
