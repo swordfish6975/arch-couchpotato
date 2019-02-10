@@ -28,7 +28,7 @@ fi
 
 cd /usr/lib
 
-git clone --depth 1 --single-branch --branch develop https://github.com/CouchPotato/CouchPotatoServer.git
+git clone --depth 1 --single-branch --branch develop https://github.com/swordfish6975/CouchPotatoServer.git
 
 mv /usr/lib/CouchPotatoServer /usr/lib/couchpotato
 
