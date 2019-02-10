@@ -26,10 +26,11 @@ if [[ ! -z "${pacman_packages}" ]]; then
 	pacman -S --needed $pacman_packages --noconfirm
 fi
 
+cd /usr/lib
 
 git clone --depth 1 --single-branch --branch develop https://github.com/CouchPotato/CouchPotatoServer.git
 
-mv /root/CouchPotatoServer /usr/lib/couchpotato
+mv /usr/lib/CouchPotatoServer /usr/lib/couchpotato
 
 
 # define comma separated list of paths 
