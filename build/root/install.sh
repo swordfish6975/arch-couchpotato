@@ -29,7 +29,7 @@ fi
 
 git clone --depth 1 --single-branch --branch develop https://github.com/CouchPotato/CouchPotatoServer.git
 
-mv -R /root/CouchPotatoServer /usr/lib/couchpotato
+mv /root/CouchPotatoServer /usr/lib/couchpotato
 
 
 # define comma separated list of paths 
