@@ -1,3 +1,33 @@
+
+this is a copy of binhex docker build script for couchpotato, it points to my updated (dev branch) version of couchpotato with IPtorrents working again.
+
+to build:
+
+**(if required)**
+```
+docker stop couchpotato   
+docker rm couchpotato
+```
+
+```
+docker build --no-cache https://github.com/swordfish6975/arch-couchpotato.git -t swordfish6975/couchpotato-dev
+```
+
+**(customise for your setup)**
+```
+docker run -d \ 
+    -p 5050:5050 \
+    --name=couchpotato \
+    -v /mnt/Backup/MOVIES:/media \
+    -v /mnt/Files/Raspberry/downloads/UNPROCESSED/MOVIES:/data \
+    -v /apps/docker/couchpotato:/config \
+    -v /etc/localtime:/etc/localtime:ro \
+    -e PUID=0 \
+    -e PGID=0 \
+    swordfish6975/couchpotato-dev:latest
+```
+
+
 **Application**
 
 [CouchPotato](http://couchpota.to)
