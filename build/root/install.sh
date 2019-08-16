@@ -13,7 +13,7 @@ curl --connect-timeout 5 --max-time 600 --retry 5 --retry-delay 0 --retry-max-ti
 unzip /tmp/scripts-master.zip -d /tmp
 
 # move shell scripts to /root
-mv /tmp/scripts-master/shell/arch/docker/*.sh /root/
+mv /tmp/scripts-master/shell/arch/docker/*.sh /usr/local/bin/
 
 # pacman packages
 ####
@@ -60,21 +60,21 @@ chmod -R 775 ${install_paths}
 cat <<EOF > /tmp/permissions_heredoc
 
 # get previous puid/pgid (if first run then will be empty string)
-previous_puid=\$(cat "/tmp/puid" 2>/dev/null || true)
-previous_pgid=\$(cat "/tmp/pgid" 2>/dev/null || true)
+previous_puid=\$(cat "/root/puid" 2>/dev/null || true)
+previous_pgid=\$(cat "/root/pgid" 2>/dev/null || true)
 
 # if first run (no puid or pgid files in /tmp) or the PUID or PGID env vars are different 
 # from the previous run then re-apply chown with current PUID and PGID values.
-if [[ ! -f "/tmp/puid" || ! -f "/tmp/pgid" || "\${previous_puid}" != "\${PUID}" || "\${previous_pgid}" != "\${PGID}" ]]; then
+if [[ ! -f "/root/puid" || ! -f "/root/pgid" || "\${previous_puid}" != "\${PUID}" || "\${previous_pgid}" != "\${PGID}" ]]; then
 
 	# set permissions inside container - Do NOT double quote variable for install_paths otherwise this will wrap space separated paths as a single string
 	chown -R "\${PUID}":"\${PGID}" ${install_paths}
 
 fi
 
-# write out current PUID and PGID to files in /tmp (used to compare on next run)
-echo "\${PUID}" > /tmp/puid
-echo "\${PGID}" > /tmp/pgid
+# write out current PUID and PGID to files in /root (used to compare on next run)
+echo "\${PUID}" > /root/puid
+echo "\${PGID}" > /root/pgid
 
 EOF
 
@@ -82,7 +82,7 @@ EOF
 sed -i '/# PERMISSIONS_PLACEHOLDER/{
     s/# PERMISSIONS_PLACEHOLDER//g
     r /tmp/permissions_heredoc
-}' /root/init.sh
+}' /usr/local/bin/init.sh
 rm /tmp/permissions_heredoc
 
 # env vars
@@ -90,6 +90,7 @@ rm /tmp/permissions_heredoc
 
 # cleanup
 yes|pacman -Scc
+pacman --noconfirm -Rns $(pacman -Qtdq) 2> /dev/null || true
 rm -rf /usr/share/locale/*
 rm -rf /usr/share/man/*
 rm -rf /usr/share/gtk-doc/*
